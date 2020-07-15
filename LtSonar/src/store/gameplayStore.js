@@ -48,9 +48,7 @@ export default {
             }
 
             pressedButton.isActive = true;
-            console.log(pressedButton);
             const circuitButtons = state.engineer.getActiveByCircuit(pressedButton.circuit);
-            console.log(circuitButtons);
             
 
             if (circuitButtons.length === 4) {

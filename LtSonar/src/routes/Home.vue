@@ -12,12 +12,28 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
             <div>Welcome to your {{ name }}</div>
             <div class="dialog">
 
-                <form class="sample-form" @submit.prevent="login(nickname)">
+                <form class="sample-form" @submit.prevent="registerUser(nickname, role, team)">
                     <label>Nickname:
                         <input name="nick" v-model="nickname" placeholder="playerName">
                     </label><br/>
+                    <label>Role:
+                        <select id="roles" name="roles" v-model="role">
+                            <option
+                                v-for="(data, index) in Object.values(getRoles)"
+                                :key="index"
+                            >{{ data }}</option>
+                        </select>
+                    </label><br/>
+                    <label>Team:
+                        <select id="teams" name="teams" v-model="team">
+                            <option
+                                v-for="(data, index) in Object.values(getTeams)"
+                                :key="index"
+                            >{{ data }}</option>
+                        </select>
+                    </label><br/>
+                    <input type="submit">
                 </form>
-
             </div>
         </div>
     </section>
@@ -38,12 +54,12 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
                 name: String,
             };
 
-            this.injectActions([ 'setName' ]);
-            this.injectGetters([ 'playerName' ]);
+            this.injectActions([ 'registerNewPlayer' ]);
+            this.injectGetters([ 'getRoles', 'getTeams' ]);
         }
 
-        login(nickname) {
-            this.setName(nickname);
+        registerUser(nickname, role, team) {
+            this.registerNewPlayer({ name: nickname, role, team });
         }
     }
 

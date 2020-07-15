@@ -2,19 +2,24 @@
 
 'use strict'
 
-export default class Player {
-    contructor(name) {        
-        this.name = name;
-    }
+export const ROLES = {
+    ENGINEER: 'ENGINEER',
+    CAPTAIN: 'CAPTAIN',
+    FIRST_OFFICER: 'FIRST_OFFICER',
+    NAVIGATOR: 'NAVIGATOR',
+};
 
-    setTeam( team ) {
-        this.Red,
-        this.Blue
-    }
-    setRole( role ) {
-        this.Captain,
-        this.FirstOfficer,
-        this.Engineer,
-        this.Navigator
+export const TEAMS = {
+    RED: 'RED',
+    BLUE: 'BLUE'
+};
+
+export default class Player {
+    constructor(params = {}) {
+        const { name, role, team } = params;        
+        
+        this.name = name;
+        this.role = role;
+        this.team = team;
     }
 }

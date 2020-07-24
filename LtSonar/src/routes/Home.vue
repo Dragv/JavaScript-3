@@ -35,6 +35,15 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
                     <input type="submit">
                 </form>
             </div>
+
+            {{ getAllPlayers() }}
+            <h2>Players</h2>
+            <div
+                v-for="(data, index) in players"
+                :key="index"
+            >
+                {{ data.name }} {{ data.role }} {{ data.team }}
+            </div>
         </div>
     </section>
 
@@ -48,6 +57,8 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
         constructor( name, subComponentList = []) {
             super( name, subComponentList );
             this.vm = {
+                players : [],
+                getAllPlayers: this.getAllPlayers
             };
 
             this.props = {
@@ -55,11 +66,17 @@ Copyright (c) 2018. Scott Henshaw, Kibble Online Inc. All Rights Reserved.
             };
 
             this.injectActions([ 'registerNewPlayer' ]);
-            this.injectGetters([ 'getRoles', 'getTeams' ]);
+            this.injectGetters([ 'getRoles', 'getTeams', 'getPlayers' ]);
+
+        }
+
+        getAllPlayers() {
+            this.getPlayers.then(value => this.players = value);
         }
 
         registerUser(nickname, role, team) {
-            this.registerNewPlayer({ name: nickname, role, team });
+            const playerData = { name: nickname, role, team };
+            this.registerNewPlayer(playerData).then(() => this.players.push(playerData));
         }
     }
 
